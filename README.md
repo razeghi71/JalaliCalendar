@@ -14,8 +14,8 @@ To Covert a Gregorian Date to Jalali :
 
 To Convert a Jalali Date to Gregorian Date :
 
-        JalaliCalendar jalaliCalendar = new JalaliCalendar(1395, 1, 28); // create a new JalaliCalendar object with specified date
-	jalaliCalendar.toGregorian(); // create a new GregorianCalendar object with date 2016-4-16
+    JalaliCalendar jalaliCalendar = new JalaliCalendar(1395, 1, 28); // create a new JalaliCalendar object with specified date
+    jalaliCalendar.toGregorian(); // create a new GregorianCalendar object with date 2016-4-16
 
 
 
