@@ -1,3 +1,6 @@
+package ir.huri.jcal;
+
+import ir.huri.jcal.JalaliCalendar;
 import junit.framework.TestCase;
 import org.junit.Test;
 

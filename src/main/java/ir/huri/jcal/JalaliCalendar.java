@@ -1,3 +1,5 @@
+package ir.huri.jcal;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -6,7 +8,7 @@ public class JalaliCalendar {
     private int year, month, day;
 
     /**
-     * Create a JalaliCalendar object
+     * Create a ir.huri.jcal.JalaliCalendar object
      * @param year Jalali Year
      * @param month Jalali Month
      * @param day Jalali Day
@@ -17,7 +19,7 @@ public class JalaliCalendar {
 
 
     /**
-     * Create a JalaliCalendar object from gregorian calendar
+     * Create a ir.huri.jcal.JalaliCalendar object from gregorian calendar
      * @param gc gregorian calendar object
      */
     public JalaliCalendar(GregorianCalendar gc){

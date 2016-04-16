@@ -1,13 +1,61 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+
+plugins {
+    id "com.jfrog.bintray" version "1.6"
+}
+
 group 'ir.huri.jcal'
-version '0.1'
+version '1.0.0'
 
-apply plugin: 'java'
 
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        jcenter()
+    }
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+    apply plugin: 'java'
+}
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            groupId 'ir.huri.jcal'
+            artifactId 'JavalCalendar'
+            version '1.0.0'
+        }
+    }
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    publications = ['MyPublication']
+    pkg {
+        repo = 'persiantools'
+        name = 'JalaliCalendar'
+        userOrg = 'razeghi71'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/razeghi71/JalaliCalendar'
+
+        version {
+            name = '1.0.0'
+            desc = 'Jalali Calendar First Release'
+            released  = new Date()
+        }
+
+    }
+
+}
+
 
