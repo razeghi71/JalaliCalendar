@@ -22,13 +22,30 @@ allprojects {
     apply plugin: 'java'
 }
 
+// custom tasks for creating source/javadoc jars
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar, javadocJar
+}
+
 publishing {
     publications {
         MyPublication(MavenPublication) {
             from components.java
             groupId 'ir.huri.jcal'
-            artifactId 'JavalCalendar'
+            artifactId 'JalaliCalendar'
             version '1.0.0'
+            artifact sourcesJar
+            artifact javadocJar
         }
     }
 }
@@ -36,6 +53,8 @@ publishing {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
+
+
 
 bintray {
     user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
@@ -57,5 +76,3 @@ bintray {
     }
 
 }
-
-
