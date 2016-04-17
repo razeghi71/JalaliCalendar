@@ -10,7 +10,7 @@ plugins {
 }
 
 group 'ir.huri.jcal'
-version '1.1.0'
+version '1.0.0'
 
 
 allprojects {
@@ -41,9 +41,9 @@ publishing {
     publications {
         MyPublication(MavenPublication) {
             from components.java
-            groupId group
+            groupId 'ir.huri.jcal'
             artifactId 'JalaliCalendar'
-            version version
+            version '1.1.0'
             artifact sourcesJar
             artifact javadocJar
         }
@@ -57,8 +57,8 @@ dependencies {
 
 
 bintray {
-    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
-    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    user = user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
     publications = ['MyPublication']
     pkg {
         repo = 'persiantools'
@@ -68,7 +68,7 @@ bintray {
         vcsUrl = 'https://github.com/razeghi71/JalaliCalendar'
 
         version {
-            name = version
+            name = '1.1.0'
             desc = 'Jalali Calendar First Release'
             released  = new Date()
         }
