@@ -29,7 +29,7 @@ public class JalaliCalendar {
 
     /**
      * Convert current jalali date to gregorian date
-     * @return
+     * @return date converted gregorianDate
      */
     public GregorianCalendar toGregorian() {
         int julianDay = toJulianDay();
