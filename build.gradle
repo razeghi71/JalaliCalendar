@@ -10,7 +10,7 @@ plugins {
 }
 
 group 'ir.huri.jcal'
-version '1.0.0'
+version '1.1.0'
 
 
 allprojects {
@@ -41,9 +41,9 @@ publishing {
     publications {
         MyPublication(MavenPublication) {
             from components.java
-            groupId 'ir.huri.jcal'
+            groupId group
             artifactId 'JalaliCalendar'
-            version '1.0.0'
+            version version
             artifact sourcesJar
             artifact javadocJar
         }
@@ -68,7 +68,7 @@ bintray {
         vcsUrl = 'https://github.com/razeghi71/JalaliCalendar'
 
         version {
-            name = '1.0.0'
+            name = version
             desc = 'Jalali Calendar First Release'
             released  = new Date()
         }
