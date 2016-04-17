@@ -56,4 +56,15 @@ public class JalaliCalenderTest extends TestCase {
         JalaliCalendar codeCreationDate = new JalaliCalendar(new GregorianCalendar(2016, 4, 16));
         assert codeCreationDate.toString().equals("1395-01-28");
     }
+
+    @Test
+    public void testRelativeDates() {
+        JalaliCalendar myFriendsBirthday = new JalaliCalendar(1372, 4, 8);
+        JalaliCalendar nextDay = myFriendsBirthday.getTomorrow();
+        JalaliCalendar prevDay = myFriendsBirthday.getYesterday();
+
+        assert nextDay.equals(new JalaliCalendar(1372,4, 9));
+        assert prevDay.equals(new JalaliCalendar(1372,4, 7));
+
+    }
 }

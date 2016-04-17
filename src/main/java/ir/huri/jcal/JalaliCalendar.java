@@ -8,6 +8,13 @@ public class JalaliCalendar {
     private int year, month, day;
 
     /**
+     * Today Jalali Date
+     */
+    public JalaliCalendar() {
+        fromGregorian(new GregorianCalendar());
+    }
+
+    /**
      * Create a ir.huri.jcal.JalaliCalendar object
      * @param year Jalali Year
      * @param month Jalali Month
@@ -23,8 +30,7 @@ public class JalaliCalendar {
      * @param gc gregorian calendar object
      */
     public JalaliCalendar(GregorianCalendar gc){
-        int jd = gregorianToJulianDayNumber(gc);
-        fromJulianDay(jd);
+        fromGregorian(gc);
     }
 
     /**
@@ -34,6 +40,29 @@ public class JalaliCalendar {
     public GregorianCalendar toGregorian() {
         int julianDay = toJulianDay();
         return julianDayToGregorianCalendar(julianDay);
+    }
+
+    /**
+     * set date from gregorian date
+     * @param gc input gregorian calendar
+     */
+    public void fromGregorian(GregorianCalendar gc){
+        int jd = gregorianToJulianDayNumber(gc);
+        fromJulianDay(jd);
+    }
+
+    /**
+     * @return yesterday date
+     */
+    public JalaliCalendar getYesterday() {
+        return new JalaliCalendar(getYear(), getMonth(), getDay() - 1);
+    }
+
+    /**
+     * @return tomorrow date
+     */
+    public JalaliCalendar getTomorrow() {
+        return new JalaliCalendar(getYear(), getMonth(), getDay() + 1);
     }
 
     public int getDay() {
@@ -66,6 +95,19 @@ public class JalaliCalendar {
         setDay(day);
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        JalaliCalendar that = (JalaliCalendar) o;
+
+        if (year != that.year) return false;
+        if (month != that.month) return false;
+        return day == that.day;
+
+    }
 
     private int gregorianToJulianDayNumber(GregorianCalendar gc) {
         int gregorianYear = gc.get(GregorianCalendar.YEAR);
