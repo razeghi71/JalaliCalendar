@@ -12,6 +12,8 @@ compile 'ir.huri.jcal:JalaliCalendar:1.1.0'
 
 # Getting Started
 
+First of all I should note that java gregorian calenders month is 0 base ( YES! that's a bad design).
+
 To Create a Jalali Date with specified year, month, day use the constructor :
 ```java    
 JalaliCalendar jalaliCalendar = new JalaliCalendar(1395, 1, 28); 
