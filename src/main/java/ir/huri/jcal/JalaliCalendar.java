@@ -55,14 +55,60 @@ public class JalaliCalendar {
      * @return yesterday date
      */
     public JalaliCalendar getYesterday() {
-        return new JalaliCalendar(getYear(), getMonth(), getDay() - 1);
+        return getDateByDiff(-1);
     }
 
     /**
      * @return tomorrow date
      */
     public JalaliCalendar getTomorrow() {
-        return new JalaliCalendar(getYear(), getMonth(), getDay() + 1);
+        return getDateByDiff(1);
+    }
+
+    /**
+     * get Jalali date by day difference
+     * @param diff number of day diffrents
+     * @return jalali calendar diff
+     */
+    public JalaliCalendar getDateByDiff(int diff) {
+        GregorianCalendar gc = toGregorian();
+        gc.add(Calendar.DAY_OF_MONTH, diff);
+        return new JalaliCalendar(gc);
+    }
+
+    /**
+     * @return day Of Week
+     */
+    public int getDayOfWeek() {
+        return toGregorian().get(Calendar.DAY_OF_WEEK);
+    }
+
+    /**
+     * @return get first day of week
+     */
+    public int getFirstDayOfWeek() {
+        return toGregorian().getFirstDayOfWeek();
+    }
+
+    public String getDayofWeekString() {
+        switch (getDayOfWeek()) {
+            case 1:
+                return "یک‌شنبه";
+            case 2 :
+                return "دوشنبه";
+            case 3:
+                return "سه‌شنبه";
+            case 4:
+                return "چهارشنبه";
+            case 5:
+                return "پنجشنبه";
+            case 6:
+                return "جمعه";
+            case 7:
+                return "شنبه";
+            default:
+                return "نامعلوم";
+        }
     }
 
     public int getDay() {
@@ -103,21 +149,18 @@ public class JalaliCalendar {
 
         JalaliCalendar that = (JalaliCalendar) o;
 
-        if (year != that.year) return false;
-        if (month != that.month) return false;
-        return day == that.day;
-
+        return year == that.year && month == that.month && day == that.day;
     }
 
     private int gregorianToJulianDayNumber(GregorianCalendar gc) {
         int gregorianYear = gc.get(GregorianCalendar.YEAR);
-        int gregorianMonth = gc.get(GregorianCalendar.MONTH);
+        int gregorianMonth = gc.get(GregorianCalendar.MONTH) + 1;
         int gregorianDay = gc.get(GregorianCalendar.DAY_OF_MONTH);
 
-        return  ((1461 * (gregorianYear + 4800 + (gregorianMonth - 14) / 12)) / 4
+        return  (((1461 * (gregorianYear + 4800 + (gregorianMonth - 14) / 12)) / 4
                 + (367 * (gregorianMonth - 2 - 12 * ((gregorianMonth - 14) / 12))) / 12
                 - (3 * ((gregorianYear + 4900 + (gregorianMonth - 14) / 12) / 100)) / 4 + gregorianDay
-                - 32075) - (gregorianYear + 100100 + (gregorianMonth - 8) / 6) / 100 * 3 / 4 + 752;
+                - 32075) - (gregorianYear + 100100 + (gregorianMonth - 8) / 6) / 100 * 3 / 4 + 752);
     }
 
     private int julianToJulianDayNumber(JulianCalendar jc) {
@@ -140,13 +183,11 @@ public class JalaliCalendar {
         int gregorianMonth = ((i / 153) % 12) + 1;
         int gregorianYear = j / 1461 - 100100 + (8 - gregorianMonth) / 6;
 
-        return new GregorianCalendar(gregorianYear, gregorianMonth, gregorianDay);
+        return new GregorianCalendar(gregorianYear, gregorianMonth - 1, gregorianDay);
     }
 
     private void fromJulianDay(int JulianDayNumber) {
-
         GregorianCalendar gc = julianDayToGregorianCalendar(JulianDayNumber);
-
         int gregorianYear = gc.get(GregorianCalendar.YEAR);
 
         int jalaliYear, jalaliMonth, jalaliDay;
@@ -179,12 +220,12 @@ public class JalaliCalendar {
     }
 
     private int toJulianDay() {
-        int jalaliMonth = this.getMonth();
-        int jalaliDay = this.getDay();
+        int jalaliMonth = getMonth();
+        int jalaliDay = getDay();
 
         GregorianCalendar gregorianFirstFarvardin = getGregorianFirstFarvardin();
         int gregorianYear = gregorianFirstFarvardin.get(Calendar.YEAR);
-        int gregorianMonth = gregorianFirstFarvardin.get(Calendar.MONTH);
+        int gregorianMonth = gregorianFirstFarvardin.get(Calendar.MONTH) + 1;
         int gregorianDay = gregorianFirstFarvardin.get(Calendar.DAY_OF_MONTH);
 
         JulianCalendar julianFirstFarvardin = new JulianCalendar(gregorianYear, gregorianMonth, gregorianDay) ;
@@ -232,7 +273,7 @@ public class JalaliCalendar {
             jp = jm;
         }
 
-        return new GregorianCalendar(gregorianYear, 3, marchDay);
+        return new GregorianCalendar(gregorianYear, 2, marchDay);
     }
 
     private boolean isLeep(int jalaliYear) {
