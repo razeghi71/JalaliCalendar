@@ -1,6 +1,5 @@
 package ir.huri.jcal;
 
-import ir.huri.jcal.JalaliCalendar;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -22,7 +21,7 @@ public class JalaliCalenderTest extends TestCase {
 
         JalaliCalendar myBirthday = new JalaliCalendar(new GregorianCalendar(1992, 10, 18));
         assertEquals(myBirthday, new JalaliCalendar(1371, 8, 27));
-//
+
         JalaliCalendar boundaryDay= new JalaliCalendar(new GregorianCalendar(2016, 0, 31));
         assertEquals(boundaryDay, new JalaliCalendar(1394, 11, 11));
     }
@@ -59,20 +58,69 @@ public class JalaliCalenderTest extends TestCase {
         JalaliCalendar myFriendsBirthday = new JalaliCalendar(1372, 4, 8);
         JalaliCalendar nextDay = myFriendsBirthday.getTomorrow();
         JalaliCalendar prevDay = myFriendsBirthday.getYesterday();
+        JalaliCalendar boundaryDay = new JalaliCalendar(1372,8,30).getDateByDiff(2);
+        JalaliCalendar boundaryDay2 = new JalaliCalendar(1372,1,15).getDateByDiff(20);
+
 
         assertEquals(nextDay, new JalaliCalendar(1372,4, 9));
         assertEquals(prevDay, new JalaliCalendar(1372,4, 7));
+        assertEquals(boundaryDay, new JalaliCalendar(1372,9, 2));
+        assertEquals(boundaryDay2, new JalaliCalendar(1372,2, 4));
     }
 
     @Test
     public void testWeekDay() {
         JalaliCalendar testCreationDate = new JalaliCalendar(1395, 1, 30);
-        assertEquals(testCreationDate.getDayofWeekString(), "دوشنبه");
+        assertEquals(testCreationDate.getDayOfWeekString(), "دوشنبه");
 
         JalaliCalendar myRoomMateBirthday = new JalaliCalendar(1371, 8, 3);
-        assertEquals(myRoomMateBirthday.getDayofWeekString(), "یک‌شنبه");
+        assertEquals(myRoomMateBirthday.getDayOfWeekString(), "یک‌شنبه");
 
         JalaliCalendar myBirthday = new JalaliCalendar(1371, 8, 27);
-        assertEquals(myBirthday.getDayofWeekString(), "چهارشنبه");
+        assertEquals(myBirthday.getDayOfWeekString(), "چهارشنبه");
     }
+
+    @Test
+    public void testLeap() {
+        JalaliCalendar leapYear =  new JalaliCalendar(1391, 1 ,1);
+        assertEquals(true, leapYear.isLeap());
+
+        JalaliCalendar leapYear2 =  new JalaliCalendar(1395, 1 ,1);
+        assertEquals(true, leapYear2.isLeap());
+
+        JalaliCalendar leapYear3 =  new JalaliCalendar(1383, 12 ,20);
+        assertEquals(true, leapYear3.isLeap());
+
+        JalaliCalendar notLeapYear1 =  new JalaliCalendar(1396, 1 ,1);
+        assertEquals(false, notLeapYear1.isLeap());
+
+        JalaliCalendar notLeapYear2 =  new JalaliCalendar(1398, 12 ,1);
+        assertEquals(false, notLeapYear2.isLeap());
+
+        JalaliCalendar notLeapYear3 =  new JalaliCalendar(1380, 7 ,1);
+        assertEquals(false, notLeapYear3.isLeap());
+
+        JalaliCalendar notLeapYear4 =  new JalaliCalendar(1384, 12 ,1);
+        assertEquals(false, notLeapYear4.isLeap());
+
+        assertEquals(366, leapYear.getYearLength());
+        assertEquals(366, leapYear2.getYearLength());
+        assertEquals(366, leapYear3.getYearLength());
+
+        assertEquals(365, notLeapYear1.getYearLength());
+        assertEquals(365, notLeapYear2.getYearLength());
+        assertEquals(365, notLeapYear3.getYearLength());
+        assertEquals(365, notLeapYear4.getYearLength());
+
+        assertEquals(31, leapYear.getMonthLength());
+        assertEquals(30, leapYear3.getMonthLength());
+
+        assertEquals(31, notLeapYear1.getMonthLength());
+        assertEquals(29, notLeapYear2.getMonthLength());
+        assertEquals(30, notLeapYear3.getMonthLength());
+        assertEquals(29, notLeapYear4.getMonthLength());
+
+    }
+
+
 }

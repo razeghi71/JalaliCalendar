@@ -68,7 +68,7 @@ public class JalaliCalendar {
     /**
      * get Jalali date by day difference
      * @param diff number of day diffrents
-     * @return jalali calendar diff
+     * @return jalali calendar diffحزن
      */
     public JalaliCalendar getDateByDiff(int diff) {
         GregorianCalendar gc = toGregorian();
@@ -90,7 +90,11 @@ public class JalaliCalendar {
         return toGregorian().getFirstDayOfWeek();
     }
 
-    public String getDayofWeekString() {
+    /**
+     *
+     * @return day name
+     */
+    public String getDayOfWeekString() {
         switch (getDayOfWeek()) {
             case 1:
                 return "یک‌شنبه";
@@ -109,6 +113,32 @@ public class JalaliCalendar {
             default:
                 return "نامعلوم";
         }
+    }
+
+    /**
+     *
+     * @return return whether this year is a jalali leap year
+     */
+    public boolean isLeap() {
+        return  getLeapFactor(getYear()) == 0;
+    }
+
+    public int getYearLength() {
+        return  isLeap() ? 366 : 365;
+    }
+
+    public int getMonthLength() {
+        if ( getMonth() < 7 ) {
+            return 31;
+        } else if ( getMonth() < 12 ) {
+            return 30;
+        } else if ( getMonth() == 12 ) {
+            if (isLeap())
+                return 30;
+            else
+                return 29;
+        }
+        return 0;
     }
 
     public int getDay() {
@@ -210,7 +240,7 @@ public class JalaliCalendar {
         } else {
             jalaliYear -= 1;
             diffFromFarvardinFirst = diffFromFarvardinFirst + 179;
-            if (isLeep(jalaliYear))
+            if (getLeapFactor(jalaliYear) == 1)
                     diffFromFarvardinFirst = diffFromFarvardinFirst + 1;
         }
 
@@ -276,7 +306,7 @@ public class JalaliCalendar {
         return new GregorianCalendar(gregorianYear, 2, marchDay);
     }
 
-    private boolean isLeep(int jalaliYear) {
+    private int getLeapFactor(int jalaliYear) {
         int leap = 0;
         int[] breaks = { -61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210,
                 1635, 2060, 2097, 2192, 2262, 2324, 2394, 2456, 3178 };
@@ -304,7 +334,7 @@ public class JalaliCalendar {
             jp = jm;
         }
 
-        return leap == 1;
+        return leap;
     }
 
     @Override
