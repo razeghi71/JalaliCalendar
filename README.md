@@ -7,7 +7,7 @@ JalaliCalendar is a Persian Calendar for java inspired from Roozh project. It ha
 JalaliCalendar is available in jcenter. add jcenter() to your repository list in build.gradle. Then add this line to your dependencies:
 
 ```gradle
-compile 'ir.huri.jcal:JalaliCalendar:1.1.0'
+compile 'ir.huri.jcal:JalaliCalendar:1.3.0'
 ```
 
 # Getting Started
