@@ -228,6 +228,8 @@ public class JalaliCalendar {
         int JulianDayFarvardinFirst = gregorianToJulianDayNumber(gregorianFirstFarvardin);
         int diffFromFarvardinFirst = JulianDayNumber - JulianDayFarvardinFirst;
 
+
+
         if (diffFromFarvardinFirst >= 0) {
             if (diffFromFarvardinFirst <= 185) {
                 jalaliMonth = 1 + diffFromFarvardinFirst / 31;
@@ -238,11 +240,12 @@ public class JalaliCalendar {
                 diffFromFarvardinFirst = diffFromFarvardinFirst - 186;
             }
         } else {
-            jalaliYear -= 1;
             diffFromFarvardinFirst = diffFromFarvardinFirst + 179;
             if (getLeapFactor(jalaliYear) == 1)
                     diffFromFarvardinFirst = diffFromFarvardinFirst + 1;
+            jalaliYear -= 1;
         }
+
 
         jalaliMonth = 7 + diffFromFarvardinFirst / 30;
         jalaliDay = (diffFromFarvardinFirst % 30) + 1;

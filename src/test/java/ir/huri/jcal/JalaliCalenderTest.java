@@ -24,6 +24,10 @@ public class JalaliCalenderTest extends TestCase {
 
         JalaliCalendar boundaryDay= new JalaliCalendar(new GregorianCalendar(2016, 0, 31));
         assertEquals(boundaryDay, new JalaliCalendar(1394, 11, 11));
+
+        JalaliCalendar otherBoundaryDay= new JalaliCalendar(new GregorianCalendar(2017, 0, 20));
+        assertEquals(otherBoundaryDay, new JalaliCalendar(1395, 11, 1));
+
     }
 
     @Test
