@@ -1,25 +1,26 @@
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
     }
 }
 
 
-plugins {
-    id "com.jfrog.bintray" version "1.6"
-}
+//plugins {
+//    id "com.jfrog.bintray" version "1.6"
+//}
 
-group 'ir.huri.jcal'
-version '1.2.0'
+group 'ir.huri'
+version '1.3.1'
 
 
 allprojects {
     repositories {
-        jcenter()
+        mavenCentral()
     }
-    apply plugin: 'maven'
-    apply plugin: 'maven-publish'
+
     apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'signing'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -36,18 +37,22 @@ artifacts {
     archives sourcesJar, javadocJar
 }
 
-publishing {
-    publications {
-        MyPublication(MavenPublication) {
-            from components.java
-            groupId 'ir.huri.jcal'
-            artifactId 'JalaliCalendar'
-            version '1.2.0'
-            artifact sourcesJar
-            artifact javadocJar
-        }
-    }
+signing {
+    sign configurations.archives
 }
+
+//publishing {
+//    publications {
+//        MyPublication(MavenPublication) {
+//            from components.java
+//            groupId 'ir.huri'
+//            artifactId 'JalaliCalendar'
+//            version '1.3.1'
+//            artifact sourcesJar
+//            artifact javadocJar
+//        }
+//    }
+//}
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
@@ -55,23 +60,47 @@ dependencies {
 
 
 
-bintray {
-    user = bintrayUser
-    key = bintrayApiKey
-    publications = ['MyPublication']
-    pkg {
-        repo = 'persiantools'
-        name = 'JalaliCalendar'
-        userOrg = 'razeghi71'
-        licenses = ['MIT']
-        vcsUrl = 'https://github.com/razeghi71/JalaliCalendar'
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-        version {
-            name = '1.2.0'
-            desc = 'Jalali Calendar First Release'
-            released  = new Date()
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Jalali Calendar'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'JalaliCalendar is a Persian Calendar for java inspired from Roozh project. It has a better API and it\'s more developer friendly'
+                url 'https://github.com/razeghi71/JalaliCalendar'
+
+                scm {
+                    connection 'scm:git:git@github.com:razeghi71/JalaliCalendar'
+                    developerConnection 'scm:git:git@github.com:razeghi71/JalaliCalendar'
+                    url 'https://github.com/razeghi71/JalaliCalendar'
+                }
+
+                licenses {
+                    license {
+                        name 'GPL v3'
+                        url 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'razeghi71'
+                        name 'Mohammad Razeghi'
+                        email 'razeghi71@gmail.com'
+                    }
+                }
+            }
         }
-
     }
-
 }
