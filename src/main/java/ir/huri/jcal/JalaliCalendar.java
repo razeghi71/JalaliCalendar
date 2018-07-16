@@ -1,6 +1,9 @@
 package ir.huri.jcal;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class JalaliCalendar {
@@ -30,6 +33,26 @@ public class JalaliCalendar {
      * @param gc gregorian calendar object
      */
     public JalaliCalendar(GregorianCalendar gc){
+        fromGregorian(gc);
+    }
+
+
+    /**
+     * Create a ir.huri.jcal.JalaliCalendar object from Localdate(java 8)
+     * @param ld local date object
+     */
+    public JalaliCalendar(LocalDate ld) {
+        fromGregorian(GregorianCalendar.from(ld.atStartOfDay(ZoneId.systemDefault())));
+    }
+
+
+    /**
+     * Create a ir.huri.jcal.JalaliCalendar object from Date object
+     * @param date Date object
+     */
+    public JalaliCalendar(Date date) {
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.setTime(date);
         fromGregorian(gc);
     }
 
