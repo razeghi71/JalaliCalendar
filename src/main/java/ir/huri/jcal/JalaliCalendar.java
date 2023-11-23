@@ -6,19 +6,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ * Model for JalaliCalendar
+ */
 public class JalaliCalendar {
-
     private int year, month, day;
 
     /**
-     * Today Jalali Date
+     * Today's Jalali date
      */
     public JalaliCalendar() {
         fromGregorian(new GregorianCalendar());
     }
 
     /**
-     * Create a ir.huri.jcal.JalaliCalendar object
+     * Create a JalaliCalendar object
      * @param year Jalali Year
      * @param month Jalali Month
      * @param day Jalali Day
@@ -29,7 +31,7 @@ public class JalaliCalendar {
 
 
     /**
-     * Create a ir.huri.jcal.JalaliCalendar object from gregorian calendar
+     * Create a JalaliCalendar object from gregorian calendar
      * @param gc gregorian calendar object
      */
     public JalaliCalendar(GregorianCalendar gc){
@@ -38,7 +40,7 @@ public class JalaliCalendar {
 
 
     /**
-     * Create a ir.huri.jcal.JalaliCalendar object from Localdate(java 8)
+     * Create a JalaliCalendar object from Localdate(java 8)
      * @param ld local date object
      */
     public JalaliCalendar(LocalDate ld) {
@@ -47,7 +49,7 @@ public class JalaliCalendar {
 
 
     /**
-     * Create a ir.huri.jcal.JalaliCalendar object from Date object
+     * Create a JalaliCalendar object from Date object
      * @param date Date object
      */
     public JalaliCalendar(Date date) {
@@ -192,10 +194,16 @@ public class JalaliCalendar {
         return  getLeapFactor(getYear()) == 0;
     }
 
+    /**
+     * @return the length of the current year. 366 for leap years and 365 for normal
+     */
     public int getYearLength() {
         return  isLeap() ? 366 : 365;
     }
 
+    /**
+     * @return return length of the jalalic month
+     */
     public int getMonthLength() {
         if ( getMonth() < 7 ) {
             return 31;
@@ -210,30 +218,53 @@ public class JalaliCalendar {
         return 0;
     }
 
+    /**
+     * @return day
+     */
     public int getDay() {
         return day;
     }
 
+    /**
+     * @return month
+     */
     public int getMonth() {
         return month;
     }
 
+    /**
+     * @return year
+     */
     public int getYear() {
         return year;
     }
 
+    /**
+     * @param month month number to set
+     */
     public void setMonth(int month) {
         this.month = month;
     }
 
+    /**
+     * @param year number to set
+     */
     public void setYear(int year) {
         this.year = year;
     }
 
+    /**
+     * @param day number to set
+     */
     public void setDay(int day) {
         this.day = day;
     }
 
+    /**
+     * @param year year number to set
+     * @param month month number to set
+     * @param day day number to set
+     */
     public void set(int year, int month, int day) {
         setYear(year);
         setMonth(month);
@@ -436,7 +467,4 @@ public class JalaliCalendar {
             return day;
         }
     }
-
-
-
 }
