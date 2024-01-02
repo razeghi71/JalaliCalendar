@@ -330,7 +330,7 @@ public class JalaliCalendar {
         int gregorianMonth = gregorianFirstFarvardin.get(Calendar.MONTH) + 1;
         int gregorianDay = gregorianFirstFarvardin.get(Calendar.DAY_OF_MONTH);
 
-        JulianCalendar julianFirstFarvardin = new JulianCalendar(gregorianYear, gregorianMonth, gregorianDay) ;
+        JulianCalendar julianFirstFarvardin = new JulianCalendar(gregorianYear, gregorianMonth, gregorianDay);
 
 
         int julianDay = julianToJulianDayNumber(julianFirstFarvardin) + (jalaliMonth - 1) * 31 - jalaliMonth / 7 * (jalaliMonth - 7)
@@ -415,7 +415,7 @@ public class JalaliCalendar {
     }
 
 
-    private class JulianCalendar {
+    private static class JulianCalendar {
         int year;
         int month;
         int day;
