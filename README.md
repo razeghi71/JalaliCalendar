@@ -1,15 +1,16 @@
+![version](https://img.shields.io/github/v/release/razeghi71/JalaliCalendar)
+
 # JalaliCalendar
 
 JalaliCalendar is a Persian Calendar for java inspired from Roozh project. It has a better API and it's more developer friendly
 
 # Add to Project
 
-JalaliCalendar is available in central maven repository. add `mavenCentral()` to your repository list in build.gradle. Then add this line to your dependencies:
+JalaliCalendar is available in central maven repository:
 
-```gradle
-compile 'ir.huri:jalalicalendar:<version>'
 ```
-
+'ir.huri:jalalicalendar:<version>'
+```
 # Getting Started
 
 First of all I should note that **JAVA GREGORIAN CALENDERS MONTH IS 0 BASE SO JANUARY IS 0, FEBRUARY is 1, ...**
