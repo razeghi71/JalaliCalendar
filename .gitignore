@@ -11,4 +11,11 @@ project/boot/
 project/plugins/project/
 .history
 .cache
-.lib/
+.metals
+**/.bloop
+.bsp/
+.vscode
+project/pro
+metals.sbt
+metals/project/
+project/metals.sbt
